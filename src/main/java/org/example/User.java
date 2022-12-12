@@ -1,51 +1,53 @@
-package org.example;
-
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
- * @author 56130
+ * Represents a user
  */
 public class User {
 
-    private  int id;
-    String firstName;
-    String lastName;
+    private int id;
+    private String firstName;
+    private String lastName;
     private int age;
     private String profession;
     private ArrayList<User> children;
 
+    /**
+     * Creates a new user with the given details
+     *
+     * @param id The ID of the user
+     * @param firstName The first name of the user
+     * @param lastName The last name of the user
+     * @param age The age of the user
+     */
     public User(int id, String firstName, String lastName, int age) {
-
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.profession = profession;
-
     }
-
+    /**
+     * Gets the name of the child
+     *
+     * @param child The child of the user
+     * @return The name of the child
+     * @throws IllegalArgumentException if the child is not part of the user's children
+     */
     public String getChildName(User child) {
         if (!this.children.contains(child)) {
-            new Exception("Invalid argument!");
-        } else {
-            String name = null;
-            if (child.getFirstName() != null) {
-                name = child.getFirstName();
-            }
-            if (name == "Harry") {
-                name.replace('r', 'p');
-            }
-            if (name != null || name.length() > 0) {
-                name.concat(child.getLastName());
-            }
+            throw new IllegalArgumentException("Invalid argument!");
         }
-        return this.getChildName(child);
+
+        String name = child.getFirstName();
+        if (name != null && name.equals("Harry")) {
+            name = name.replace('r', 'p');
+        }
+
+        if (name != null && !name.isEmpty()) {
+            name = name.concat(child.getLastName());
+        }
+
+        return name;
     }
 
     public String getFirstName() {
